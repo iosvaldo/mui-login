@@ -20,11 +20,10 @@ function App() {
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container >
+        <Grid container>
           <Grid item xs={6}>
             <Item>
               <img src={loginBG} width="100%" height="100%" alt="login_bg" />
-              
             </Item>
           </Grid>
           <Grid item xs={6}>
@@ -33,7 +32,9 @@ function App() {
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
-              }}>
+                backgroundColor: "#e6e6e6",
+              }}
+            >
               <LoginContainer />
             </Item>
           </Grid>

@@ -16,6 +16,7 @@ function LoginContainer() {
         width: "400px",
         padding: "2em",
         borderRadius: "5px",
+        backgroundColor:"#fff",
         boxShadow: "-1px -1px 27px -6px rgba(0,0,0,0.75)",
       }}
     >
