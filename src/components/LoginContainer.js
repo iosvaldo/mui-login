@@ -1,49 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import  Button  from "@mui/material/Button";
+import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { CgLogIn } from "react-icons/cg"
-import logo from "../assets/login_logo.png";
+// import { CgLogIn } from "react-icons/cg"
+// import logo from "../assets/login_logo.png";
+import GoogleBtn from "./GoogleBtn";
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../services/Firebase'
+import { useNavigate } from 'react-router-dom';
+
 
 function LoginContainer() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [errorMsg, setErrorMsg] = useState("")
+  const navigate = useNavigate("")
 
- 
+  const handleLogin = async () => {
+    if (email === "" || password === "") {
+      setEmail("Email and Password Can't be Empty!")
+      return;
+    }
+    try {
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      navigate('/')
+    } catch(error) {
+      setErrorMsg(error.message);
+    }
+  }
+
   return (
-    <Container
-      style={{
-        width: "400px",
-        padding: "2em",
-        borderRadius: "5px",
-        backgroundColor:"#fff",
-        boxShadow: "-1px -1px 27px -6px rgba(0,0,0,0.75)",
-      }}
-    >
-      <img style={{ width: "10%", height: "10%" }} src={logo} alt="logo" />
-      <div
-        className="login-container"
-        style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}
-      >
-        <Typography
-          style={{
-            display: "flex",
-            alignItems: "center",
-            fontFamily: "Montserrat",
-          }}
-          variant="h3"
-          color={"#000"}
-          gutterBottom
-        >
-          <CgLogIn
-            style={{
-              padding: "10px",
-              color: "grey",
-            }}
-          />
-          Login
-        </Typography>
-      </div>
+    <Container style={{ padding: "1em" }}>
+      
+      <Typography variant="h3" color={"#000"} gutterBottom>
+        💫 Login
+      </Typography>
+
       <Box
         component="form"
         sx={{
@@ -55,21 +49,47 @@ function LoginContainer() {
         noValidate
         autoComplete="off"
       >
-        <TextField id="outlined-basic" label="Email" variant="outlined" />
+        <TextField
+          id="outlined-basic"
+          label="Email"
+          variant="outlined"
+          value={email}
+          onChane={(e) => setEmail(e.target.value)}
+        />
         <TextField
           id="outlined-basic"
           label="Password"
           variant="outlined"
           type={"password"}
+          value={password}
+          nChane={(e) => setPassword(e.target.value)}
         />
       </Box>
-
-      <Button
-        style={{ backgroundCOlor: "#345", width: "15vw", marginTop: "1em" }}
-        variant="contained"
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
       >
-        Login
-      </Button>
+        <Button
+          onClick={handleLogin}
+          style={{
+            backgroundColor: "#FD3101",
+            width: "25vw",
+            marginTop: "1em",
+          }}
+          variant="contained"
+        >
+          Log In
+        </Button>
+        <GoogleBtn/>
+      </Box>
+      {errorMsg && (
+        <span style={{ color: "red", margin: "1em" }}>
+          <p>{errorMsg}</p>
+        </span>
+      )}
     </Container>
   );
 }
