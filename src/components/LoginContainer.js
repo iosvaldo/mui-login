@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 // import { CgLogIn } from "react-icons/cg"
-// import logo from "../assets/login_logo.png";
+import logo from "../assets/login_logo.png";
 import GoogleBtn from "./GoogleBtn";
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../services/Firebase'
@@ -20,7 +20,7 @@ function LoginContainer() {
 
   const handleLogin = async () => {
     if (email === "" || password === "") {
-      setEmail("Email and Password Can't be Empty!")
+      setErrorMsg("Email and Password Can't be Empty!")
       return;
     }
     try {
@@ -33,9 +33,13 @@ function LoginContainer() {
 
   return (
     <Container style={{ padding: "1em" }}>
-      
+      <img style={{ width: "10%", height: "10%" }} src={logo} alt="logo" />
+      <div
+        className="login-container"
+        style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}
+      ></div>
       <Typography variant="h3" color={"#000"} gutterBottom>
-        💫 Login
+        Login
       </Typography>
 
       <Box
@@ -54,7 +58,7 @@ function LoginContainer() {
           label="Email"
           variant="outlined"
           value={email}
-          onChane={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <TextField
           id="outlined-basic"
@@ -62,7 +66,7 @@ function LoginContainer() {
           variant="outlined"
           type={"password"}
           value={password}
-          nChane={(e) => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </Box>
       <Box
@@ -75,8 +79,8 @@ function LoginContainer() {
         <Button
           onClick={handleLogin}
           style={{
-            backgroundColor: "#FD3101",
-            width: "25vw",
+            backgroundColor: "rgb(55,125,190)",
+            width: "15vw",
             marginTop: "1em",
           }}
           variant="contained"

@@ -5,28 +5,29 @@ import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 
-function Home() {
+const Home = () => {
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSignOut = async () => {
     await signOut(auth);
     navigate("/login")
-  }
+  };
+
   return (
     <Box sx={{
       display: "flex",
-      margin: "1em", gap: "16px"}}
+      margin: "1em", gap: "16px"
+    }}
       flexDirection="column"
-      alignItems={ "center"}
+      alignItems={"center"}
     >
       <Typography variant="h2" gutterBottom>
-         🏡 Home
+        🏡 Home
       </Typography>
       <Button variant="contained" onClick={handleSignOut}>
-        signOut
+        Sign Out
       </Button>
-      
     </Box>
   )
 }
